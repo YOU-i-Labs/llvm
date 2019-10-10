@@ -32,6 +32,10 @@ if ((CMAKE_GENERATOR MATCHES "Visual Studio") AND (CMAKE_GENERATOR_TOOLSET STREQ
                   "host compiler, pass -Thost=x64 on the CMake command line.")
 endif()
 
+if (LLVM_STATIC_LIBS_FOR_ANDROID)
+  set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+endif()
+
 project(LLVM
   VERSION ${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}
   LANGUAGES C CXX ASM)

@@ -47,7 +47,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include <algorithm>
 #include <string>
-#ifdef HAVE_BACKTRACE
+#if defined(HAVE_BACKTRACE) && ENABLE_BACKTRACES
 # include BACKTRACE_HEADER         // For backtrace().
 #endif
 #if HAVE_SIGNAL_H

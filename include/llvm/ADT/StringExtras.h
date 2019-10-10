@@ -217,9 +217,11 @@ inline bool to_float(const Twine &T, double &Num) {
   return detail::to_float(T, Num, strtod);
 }
 
+#ifndef __ANDROID__
 inline bool to_float(const Twine &T, long double &Num) {
   return detail::to_float(T, Num, strtold);
 }
+#endif
 
 inline std::string utostr(uint64_t X, bool isNeg = false) {
   char Buffer[21];

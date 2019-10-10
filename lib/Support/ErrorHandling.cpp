@@ -198,6 +198,8 @@ void llvm::install_out_of_memory_new_handler() {
   }
 }
 
+// T42835532: LLVM shouldn't be changing the global new handler by default.
+#if 0
 // Static object that causes installation of 'out_of_memory_new_handler' before
 // execution of 'main'.
 static class NewHandlerInstaller {
@@ -206,6 +208,7 @@ public:
     install_out_of_memory_new_handler();
   }
 } new_handler_installer;
+#endif
 #endif
 
 void llvm::llvm_unreachable_internal(const char *msg, const char *file,
