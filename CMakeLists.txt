@@ -2,6 +2,12 @@
 
 cmake_minimum_required(VERSION 3.4.3)
 
+include(cmake/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.23.214.tar.gz"
+    SHA1 "e14bc153a7f16d6a5eeec845fb0283c8fad8c358"
+)
+
 if(POLICY CMP0068)
   cmake_policy(SET CMP0068 NEW)
   set(CMAKE_BUILD_WITH_INSTALL_NAME_DIR ON)
@@ -828,6 +834,18 @@ if(LLVM_PROFDATA_FILE AND EXISTS ${LLVM_PROFDATA_FILE})
   else()
     message(FATAL_ERROR "LLVM_PROFDATA_FILE can only be specified when compiling with clang")
   endif()
+endif()
+
+if(CMAKE_CROSSCOMPILING)
+  include(hunter_experimental_add_host_project)
+  hunter_experimental_add_host_project(cmake/host)
+  set(
+      LLVM_TABLEGEN
+      "${HUNTER_HOST_ROOT}/bin/llvm-tblgen"
+      CACHE
+      FILEPATH
+      "..."
+  )
 endif()
 
 include(AddLLVM)
