@@ -1,0 +1,30 @@
+add_llvm_library(LLVMGlibCCompat
+  src/alarm.c
+  src/getprotobyname_r.c
+  src/getservbyname_r.c
+  src/herrno.c
+  src/herror.c
+  src/in6_addr.c
+  src/inet_addr.c
+  src/inet_pton.c
+  src/lockf.c
+  src/mktemp.c
+  src/ns_name.c
+  src/ns_netint.c
+  src/ns_samedomain.c
+  src/qsort_r.c
+  src/random.c
+  src/realpath.c
+  src/res_comp.c
+  src/res_data.c
+  src/res_debug.c
+  src/res_init.c
+  src/res_libc.c
+  src/res_mkquery.c
+  src/res_query.c
+  src/res_send.c
+  )
+
+target_include_directories(LLVMGlibCCompat PUBLIC  
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>  
+)
