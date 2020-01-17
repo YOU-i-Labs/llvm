@@ -456,10 +456,15 @@ llvm::sys::writeFileWithEncoding(StringRef FileName, StringRef Contents,
 
 bool llvm::sys::commandLineFitsWithinSystemLimits(StringRef Program,
                                                   ArrayRef<StringRef> Args) {
+#if defined(__native_client__)
+  static long ArgMax = -1;
+  static long ArgMin = 4096;
+#else
   static long ArgMax = sysconf(_SC_ARG_MAX);
   // POSIX requires that _POSIX_ARG_MAX is 4096, which is the lowest possible
   // value for ARG_MAX on a POSIX compliant system.
   static long ArgMin = _POSIX_ARG_MAX;
+#endif
 
   // This the same baseline used by xargs.
   long EffectiveArgMax = 128 * 1024;

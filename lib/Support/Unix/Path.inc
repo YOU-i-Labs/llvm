@@ -187,6 +187,8 @@ std::string getMainExecutable(const char *argv0, void *MainAddr) {
       if (getprogpath(exe_path, argv0))
         return exe_path;
   }
+#elif defined(__native_client__)
+  // not available
 #elif defined(HAVE_DLFCN_H) && defined(HAVE_DLADDR)
   // Use dladdr to get executable path if available.
   Dl_info DLInfo;
@@ -374,6 +376,8 @@ static bool is_local_impl(struct STATVFS &Vfs) {
 #elif defined(__HAIKU__)
   // Haiku doesn't expose this information.
   return false;
+#elif defined(__native_client__)
+  return true;
 #elif defined(__sun)
   // statvfs::f_basetype contains a null-terminated FSType name of the mounted target
   StringRef fstype(Vfs.f_basetype);

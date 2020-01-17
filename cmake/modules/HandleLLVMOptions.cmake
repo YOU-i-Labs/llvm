@@ -419,7 +419,7 @@ elseif( LLVM_COMPILER_IS_GCC_COMPATIBLE )
   else()
     check_cxx_compiler_flag("-std=c++11" CXX_SUPPORTS_CXX11)
     if (CXX_SUPPORTS_CXX11)
-      if (CYGWIN OR MINGW)
+      if (CYGWIN OR MINGW OR TIZEN_NACL)
         # MinGW and Cygwin are a bit stricter and lack things like
         # 'strdup', 'stricmp', etc in c++11 mode.
         append("-std=gnu++11" CMAKE_CXX_FLAGS)

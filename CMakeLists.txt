@@ -477,13 +477,21 @@ if( WIN32 AND NOT CYGWIN )
   set(LLVM_LIT_TOOLS_DIR "" CACHE PATH "Path to GnuWin32 tools")
 endif()
 
+set(_LLVM_INCLUDE_TOOLS_DEFAULT ON)
+set(_LLVM_BUILD_TOOLS_DEFAULT ON)
+if (TIZEN_NACL)
+  # There's not need to build the tools for Tizen. Only the library is needed.
+  set(_LLVM_INCLUDE_TOOLS_DEFAULT OFF)
+  set(_LLVM_BUILD_TOOLS_DEFAULT OFF)
+endif()
+
 # Define options to control the inclusion and default build behavior for
 # components which may not strictly be necessary (tools, examples, and tests).
 #
 # This is primarily to support building smaller or faster project files.
-option(LLVM_INCLUDE_TOOLS "Generate build targets for the LLVM tools." ON)
+option(LLVM_INCLUDE_TOOLS "Generate build targets for the LLVM tools." ${_LLVM_INCLUDE_TOOLS_DEFAULT})
 option(LLVM_BUILD_TOOLS
-  "Build the LLVM tools. If OFF, just generate build targets." ON)
+  "Build the LLVM tools. If OFF, just generate build targets." ${_LLVM_BUILD_TOOLS_DEFAULT})
 
 option(LLVM_INCLUDE_UTILS "Generate build targets for the LLVM utils." ON)
 option(LLVM_BUILD_UTILS

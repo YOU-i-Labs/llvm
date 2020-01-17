@@ -46,7 +46,6 @@
 #include "llvm/Support/MathExtras.h"
 #include <cassert>
 #include <cerrno>
-#include <cfenv>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>

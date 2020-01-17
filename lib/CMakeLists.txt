@@ -1,6 +1,10 @@
 # `Demangle', `Support' and `TableGen' libraries are added on the top-level
 # CMakeLists.txt
 
+if (TIZEN_NACL)
+	add_subdirectory(glibc-compat)
+endif()
+
 add_subdirectory(IR)
 add_subdirectory(FuzzMutate)
 add_subdirectory(IRReader)

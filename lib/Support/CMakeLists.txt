@@ -174,4 +174,9 @@ add_llvm_library(LLVMSupport
   LINK_LIBS ${system_libs} ${delayload_flags}
   )
 
+if (TIZEN_NACL)
+  target_include_directories(LLVMSupport PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../glibc-compat/include)
+  target_link_libraries(LLVMSupport PUBLIC LLVMGlibCCompat)
+endif()
+
 set_property(TARGET LLVMSupport PROPERTY LLVM_SYSTEM_LIBS "${system_libs}")

@@ -237,7 +237,11 @@ void Memory::InvalidateInstructionCache(const void *Addr,
   // FIXME: Can we safely always call this for __GNUC__ everywhere?
   const char *Start = static_cast<const char *>(Addr);
   const char *End = Start + Len;
+#if defined(__native_client__)
+  // __clear_cache is an undefined reference when building nacl, hopefully not calling __clear_cache is fine. 
+#else
   __clear_cache(const_cast<char *>(Start), const_cast<char *>(End));
+#endif
 #  endif
 
 #endif  // end apple

@@ -284,7 +284,11 @@ static void RegisterHandlers() { // Not signal-safe.
     struct sigaction NewHandler;
 
     NewHandler.sa_handler = SignalHandler;
+#if defined(__native_client__)
+    NewHandler.sa_flags = 0;
+#else
     NewHandler.sa_flags = SA_NODEFER | SA_RESETHAND | SA_ONSTACK;
+#endif
     sigemptyset(&NewHandler.sa_mask);
 
     // Install the new handler, save the old one in RegisteredSignalInfo.
