@@ -199,6 +199,8 @@ std::string getMainExecutable(const char *argv0, void *MainAddr) {
   char link_path[MAXPATHLEN];
   if (realpath(DLInfo.dli_fname, link_path))
     return link_path;
+#elif defined(__native_client__)
+  return "";
 #else
 #error GetMainExecutable is not implemented on this host yet.
 #endif
@@ -379,6 +381,8 @@ static bool is_local_impl(struct STATVFS &Vfs) {
   StringRef fstype(Vfs.f_basetype);
   // NFS is the only non-local fstype??
   return !fstype.equals("nfs");
+#elif defined(__native_client__)
+  return true;
 #else
   return !!(STATVFS_F_FLAG(Vfs) & MNT_LOCAL);
 #endif
