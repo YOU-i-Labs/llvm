@@ -857,6 +857,15 @@ if( MINGW AND NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
   llvm_replace_compiler_option(CMAKE_CXX_FLAGS_RELEASE "-O3" "-O2")
 endif()
 
+if (ANDROID)
+  llvm_replace_compiler_option(CMAKE_C_FLAGS "-g" "")
+  llvm_replace_compiler_option(CMAKE_CXX_FLAGS "-g" "")
+  llvm_replace_compiler_option(CMAKE_ASM_FLAGS "-g" "")
+  llvm_replace_compiler_option(CMAKE_C_FLAGS_RELEASE "-g" "")
+  llvm_replace_compiler_option(CMAKE_CXX_FLAGS_RELEASE "-g" "")
+  llvm_replace_compiler_option(CMAKE_ASM_FLAGS_RELEASE "-g" "")
+endif()
+
 # Put this before tblgen. Else we have a circular dependence.
 add_subdirectory(lib/Demangle)
 add_subdirectory(lib/Support)
